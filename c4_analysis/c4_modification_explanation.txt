@@ -1,0 +1,16 @@
+﻿Modification: Added Bitwise NOT operator (NOT)
+
+
+
+
+Description:
+
+
+In summary I Implemented a new instruction, `NOT`, which performs a bitwise NOT operation on the top value of the stack. The `NOT` operator inverts all the bits of the value at the top of the stack (using the `~` operator in C).
+
+
+How do they affect the compiler’s behaviour?
+
+
+This modification extends the compiler's capabilities by adding bitwise negation, allowing for more complex bitwise operations in programs.
+Example usage: A value `5` on the stack will be transformed into `-6` after applying `NOT`.

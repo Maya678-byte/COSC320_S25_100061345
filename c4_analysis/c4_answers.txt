@@ -1,0 +1,60 @@
+﻿1. What is the purpose of the next() function, and how does it contribute to the compilation process?
+The next() function in c4.c is responsible for lexical analysis, which means it reads and processes the next token in the source code. It helps break the input into meaningful symbols that the parser can understand.
+* next() reads characters from the input and identifies keywords, identifiers, operators, and literals.
+* It skips whitespace and comments to ensure the compiler processes only valid code.
+* It updates the global token variable (tk), allowing other parts of the compiler to check the current token and act accordingly.
+* Without next(), the parser would not be able to differentiate between keywords, variables, and symbols in the source code.
+
+
+2. How does C4 handle symbol resolution (e.g., variables, functions)?
+C4 uses a symbol table to manage variables, functions, and memory locations. Symbol resolution is handled as follows:
+1. Identifiers and Scope Tracking:
+   * When parsing, C4 differentiates between global and local symbols.
+   * Global variables and function names are stored in a lookup table.
+   * Local variables are pushed onto the stack and referenced using offsets.
+2. Symbol Attributes:
+   * Each symbol has an associated class (Glo for global, Loc for local, Fun for functions).
+   * The memory location (Val) is stored for each symbol.
+   * Functions have a special type (Fun) and are linked to their entry points in generated machine code.
+3. Resolving Function Calls & Variables:
+   * When a function is called, the symbol table checks if it exists.
+   * If the function is undefined, an error is raised.
+   * When accessing a variable, the compiler determines whether it is global (stored in memory) or local (stored on the stack).
+
+
+3. What are the limitations of C4 as a compiler? What features of C does it not support?
+C4 is a minimalist C compiler and lacks several features found in a full-fledged C compiler.
+Limitations of C4:
+1. No Complex Data Structures:
+   * struct and union types are not supported.
+   * Only basic integer arrays are allowed.
+2. No Floating-Point Support:
+   * C4 operates only on integer values.
+   * No float or double arithmetic is available.
+3. Limited Standard Library:
+   * Functions like printf() and scanf() are not fully implemented.
+   * No support for math.h functions.
+4. No Preprocessor Directives:
+   * #define, #include, and macros are not available.
+   * This means no #ifdef conditional compilation.
+5. Simplified Type System:
+   * Pointers exist but are not type-checked properly.
+   * No support for typedef.
+6. No Separate Compilation:
+   * C4 does not support multiple source files (.c files cannot be linked together).
+   * All code must be in a single file.
+
+
+4. How does C4 achieve self-hosting (i.e., compiling itself)? What are the implications of this design?
+C4 achieves self-hosting by compiling a minimal subset of C that is enough to recompile itself.
+How Self-Hosting Works:
+1. Bootstrapping with an Existing Compiler:
+   * Initially, C4 is compiled using another C compiler (like gcc).
+   * Once compiled, the c4 binary can then compile itself.
+2. Minimal Feature Set:
+   * C4 only supports the subset of C needed to build C4 itself.
+   * This means no complex features like structs or floating-point math.
+3. Implications of Self-Hosting:
+   * Portability: Since C4 compiles itself, it can be moved to different systems.
+   * Dependency-Free: Once bootstrapped, it no longer requires gcc or another compiler.
+   * Limited Expansion: Because it lacks advanced C features, improving C4 is difficult without modifying its core.

@@ -14,7 +14,7 @@ mod tests {
     // TODO: Import `is_even`. You can use a wildcard to import everything in
     // the outer module.
 
-// Import everything from the outer module (`super`) using a wildcard.
+// Import everything from the outer module called super using a wildcard.
     use super::*;
 
     #[test]
